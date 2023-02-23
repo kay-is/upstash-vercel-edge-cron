@@ -10,7 +10,7 @@ export async function filter(text: string) {
 
   let maskedText = text
   for (let word of filteredWords) {
-    console.log(maskedText)
+    console.log(word)
     maskedText = maskedText.replaceAll(new RegExp(word, "gi"), "[REDACTED]")
   }
 
