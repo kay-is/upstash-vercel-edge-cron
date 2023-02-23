@@ -9,8 +9,10 @@ export async function filter(text: string) {
   const filteredWords = await redisClient.smembers("words")
 
   let maskedText = text
-  for (let word of filteredWords)
+  for (let word of filteredWords) {
+    console.log(maskedText)
     maskedText = maskedText.replaceAll(new RegExp(word, "gi"), "[REDACTED]")
+  }
 
   return maskedText
 }
