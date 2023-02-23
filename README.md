@@ -1,1 +1,1 @@
-# upstash-vercel-edge-cron
+# Edge Powered Word Filter
