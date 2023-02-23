@@ -1,7 +1,7 @@
 import Head from "next/head"
 import { filter } from "@/utils/word-filter"
 
-export const config = { runtime: "edge" }
+export const config = { runtime: "experimental-edge" }
 
 interface HomeProps {
   maskedText: string
