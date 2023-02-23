@@ -22,8 +22,10 @@ export default function Home(props: HomeProps) {
 }
 
 export async function getServerSideProps(): Promise<{ props: HomeProps }> {
+  console.log("Running getServerSideProps")
   const maskedText = await filter(
     "He slipped and fell on his butt. Well, that wasn't very sexy."
   )
+  console.log("Masked Text:", maskedText)
   return { props: { maskedText } }
 }
