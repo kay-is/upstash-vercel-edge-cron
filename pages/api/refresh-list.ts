@@ -14,6 +14,9 @@ export default async function handler() {
   const words = await wordResponse.text()
 
   const redisCommands = redisClient.pipeline()
-  words.split("\n").forEach((word) => redisCommands.sadd("words", word))
+  words
+    .trim()
+    .split("\n")
+    .forEach((word) => redisCommands.sadd("words", word))
   await redisCommands.exec()
 }

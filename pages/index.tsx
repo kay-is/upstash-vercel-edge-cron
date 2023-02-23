@@ -1,6 +1,8 @@
 import Head from "next/head"
 import { filter } from "@/utils/word-filter"
 
+export const config = { runtime: "edge" }
+
 interface HomeProps {
   maskedText: string
 }
@@ -19,9 +21,9 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps() {
-  const text = await filter(
+export async function getServerSideProps(): Promise<{ props: HomeProps }> {
+  const maskedText = await filter(
     "He slipped and fell on his butt. Well, that wasn't very sexy."
   )
-  return { props: { text } }
+  return { props: { maskedText } }
 }
