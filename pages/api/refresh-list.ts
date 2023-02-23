@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import { Redis } from "@upstash/redis"
 
 export const config = {
@@ -10,10 +9,7 @@ const redisClient = new Redis({
   token: process.env.UPSTASH_REDIS_TOKEN,
 })
 
-export default async function handler(
-  _request: NextApiRequest,
-  response: NextApiResponse
-) {
+export default async function handler() {
   const wordResponse = await fetch(
     "https://raw.githubusercontent.com/kay-is/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/en"
   )
@@ -22,6 +18,4 @@ export default async function handler(
   const redisCommands = redisClient.pipeline()
   words.split("\n").forEach((word) => redisCommands.sadd("words", word))
   await redisCommands.exec()
-
-  response.status(200).json({ success: true })
 }

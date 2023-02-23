@@ -1,11 +1,11 @@
 import Head from "next/head"
-import { useFilter } from "@/utils/word-filter"
+import { filter } from "@/utils/word-filter"
 
-export default function Home() {
-  const maskedText = useFilter(
-    "He slipped and fell on his butt. Well, that wasn't very sexy."
-  )
+interface HomeProps {
+  maskedText: string
+}
 
+export default function Home(props: HomeProps) {
   return (
     <>
       <Head>
@@ -13,8 +13,15 @@ export default function Home() {
       </Head>
       <div>
         <h1>Text with Filtered Words</h1>
-        <p>{maskedText}</p>
+        <p>{props.maskedText}</p>
       </div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const text = await filter(
+    "He slipped and fell on his butt. Well, that wasn't very sexy."
+  )
+  return { props: { text } }
 }
